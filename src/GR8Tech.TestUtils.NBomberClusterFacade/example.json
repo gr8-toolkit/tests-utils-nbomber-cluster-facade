@@ -1,0 +1,55 @@
+{
+  "Serilog": {
+    "MinimumLevel": "Information",
+    "WriteTo": [
+      {
+        "Name": "Console",
+        "Args": {
+          "outputTemplate": "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz}] [{Level:u3}] {Message:lj}{NewLine}{Exception}"
+        }
+      }
+    ]
+  },
+  "ClusterSettings": {
+    "NATSServerUrl": "nats://localhost",
+    "CoordinatorHostUrl": "http://localhost:5777",
+    "InfluxDB": {
+      "Url": "http://localhost:8086",
+      "DataBaseName": "nbomber_demo",
+      "User": "admin",
+      "Password": "admin"
+    },
+    "ReportingTags": {
+      "CommonTags": {
+        "test_name": "YourTestName",
+        "pipeline": "unknown",
+        "build_simpleWebApp": "unknown"
+      },
+      "AnnotationTags": {
+        "pipeline": "unknown",
+        "build_simpleWebApp": "unknown",
+        "config_SimpleWebApp": "unknown"
+      }
+    },
+    "License": null,
+    "ClusterId": "my_test_cluster_1",
+    "MinAgentsCount": 1,
+    "RunnerSettings": {
+      "Type": "coordinator",
+      "AgentGroup": "group_1"
+    },
+    "CoordinatorScenarios": [
+      "Scenario_LoadHttp",
+      "Scenario_LoadKafka"
+    ],
+    "Agents": [
+      {
+        "AgentGroup": "group_1",
+        "TargetScenarios": [
+          "Scenario_LoadHttp",
+          "Scenario_LoadKafka"
+        ]
+      }
+    ]
+  }
+}
